@@ -33,7 +33,7 @@ $body = @{
     type = "A"
 } | ConvertTo-Json -Depth 4
 
-Write-Host "Json body: $body"
+$body
 
 $response = curl $url `
     -X POST `
@@ -46,12 +46,10 @@ $responseJson = $response | ConvertFrom-Json
 if ($responseJson.success -eq $true)
 {
     Write-Host "DNS record created successfully."
-    Write-Host "Response: $responseJson"
-    return $responseJson.result.id
+    Write-Host "Response: $response"
 }
 else
 {
     Write-Host "Failed to create DNS record."
-    Write-Host "Response: $( $responseJson )"
-    exit 1
+    Write-Host "Response: $( $response )"
 }
