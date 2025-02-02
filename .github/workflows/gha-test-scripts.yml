@@ -21,3 +21,8 @@ jobs:
     steps:
       - name: 'Checkout'
         uses: actions/checkout@v4
+
+      - name: Get Cloudflare Zone ID
+        run: ./cloudflare/Get-CloudflareZoneId-Test.ps1
+        env:
+          CLOUDFLARE_API_KEY: ${{ secrets.CLOUDFLARE_API_KEY }}
