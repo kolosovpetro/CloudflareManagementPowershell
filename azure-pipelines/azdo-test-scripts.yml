@@ -1,19 +1,105 @@
+variables:
+  - group: 'CLOUDFLARE_API_TOKEN'
+
 trigger: none
 pr: none
 
-stages:
-  - stage: 'Test_Scripts'
-    displayName: 'Test_Scripts'
-    jobs:
-      - job: 'Test_Scripts'
-        displayName: 'Test_Scripts'
-        strategy:
-          windows:
-            imageName: 'windows-latest'
-          linux:
-            imageName: 'ubuntu-latest'
-        pool:
-          vmImage: $(imageName)
-        steps:
-          - checkout: self
-            fetchDepth: 0
+jobs:
+  - job: test_scripts_ubuntu
+    displayName: 'Test Scripts Ubuntu'
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+      - checkout: self
+
+      - task: PowerShell@2
+        displayName: 'Get Cloudflare Zone ID'
+        inputs:
+          targetType: 'filePath'
+          filePath: './cloudflare/Get-CloudflareZoneId-Test.ps1'
+          pwsh: true
+
+      - task: PowerShell@2
+        displayName: 'Get DNS records'
+        inputs:
+          targetType: 'filePath'
+          filePath: './cloudflare/Get-CloudflareDnsRecords-Test.ps1'
+          pwsh: true
+
+      - task: PowerShell@2
+        displayName: 'Insert DNS records'
+        inputs:
+          targetType: 'filePath'
+          filePath: './cloudflare/Insert-CloudflareDnsRecord-Test.ps1'
+          pwsh: true
+
+      - task: PowerShell@2
+        displayName: 'Update DNS records'
+        inputs:
+          targetType: 'filePath'
+          filePath: './cloudflare/Update-CloudflareDnsRecord-Test.ps1'
+          pwsh: true
+
+      - task: PowerShell@2
+        displayName: 'Delete DNS records'
+        inputs:
+          targetType: 'filePath'
+          filePath: './cloudflare/Delete-CloudflareDnsRecord-Test.ps1'
+          pwsh: true
+
+      - task: PowerShell@2
+        displayName: 'Upsert DNS records'
+        inputs:
+          targetType: 'filePath'
+          filePath: './cloudflare/Upsert-CloudflareDnsRecord-Test.ps1'
+          pwsh: true
+
+  - job: test_scripts_windows
+    displayName: 'Test Scripts Windows'
+    dependsOn: test_scripts_ubuntu
+    pool:
+      vmImage: 'windows-latest'
+    steps:
+      - checkout: self
+
+      - task: PowerShell@2
+        displayName: 'Get Cloudflare Zone ID'
+        inputs:
+          targetType: 'filePath'
+          filePath: './cloudflare/Get-CloudflareZoneId-Test.ps1'
+          pwsh: true
+
+      - task: PowerShell@2
+        displayName: 'Get DNS records'
+        inputs:
+          targetType: 'filePath'
+          filePath: './cloudflare/Get-CloudflareDnsRecords-Test.ps1'
+          pwsh: true
+
+      - task: PowerShell@2
+        displayName: 'Insert DNS records'
+        inputs:
+          targetType: 'filePath'
+          filePath: './cloudflare/Insert-CloudflareDnsRecord-Test.ps1'
+          pwsh: true
+
+      - task: PowerShell@2
+        displayName: 'Update DNS records'
+        inputs:
+          targetType: 'filePath'
+          filePath: './cloudflare/Update-CloudflareDnsRecord-Test.ps1'
+          pwsh: true
+
+      - task: PowerShell@2
+        displayName: 'Delete DNS records'
+        inputs:
+          targetType: 'filePath'
+          filePath: './cloudflare/Delete-CloudflareDnsRecord-Test.ps1'
+          pwsh: true
+
+      - task: PowerShell@2
+        displayName: 'Upsert DNS records'
+        inputs:
+          targetType: 'filePath'
+          filePath: './cloudflare/Upsert-CloudflareDnsRecord-Test.ps1'
+          pwsh: true
