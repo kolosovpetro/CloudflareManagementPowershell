@@ -1,7 +1,10 @@
-﻿$zoneId = $( ./Get-CloudflareZoneId.ps1 -ApiToken $env:CLOUDFLARE_API_KEY -ZoneName "razumovsky.me" );
+﻿$zoneName = "razumovsky.me"
+
+$zoneId = $( ./Get-CloudflareZoneId.ps1 -ApiToken $env:CLOUDFLARE_API_KEY -ZoneName $zoneName );
+
 Write-Host "Zone ID: $zoneId"
 
-$newDnsRecord = "new-dns-record"
+$newDnsRecord = "new-dns-record.$zoneName"
 
 Write-Host "New Dns record: $newDnsRecord"
 
