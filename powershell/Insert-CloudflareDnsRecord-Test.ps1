@@ -4,20 +4,29 @@ $zoneId = $( ./Get-CloudflareZoneId.ps1 -ApiToken $env:CLOUDFLARE_API_KEY -ZoneN
 
 Write-Host "Zone ID: $zoneId"
 
-$newDnsRecord = "new-dns-record.$zoneName"
+$newDnsEntriesHashtable = @{ }
 
-Write-Host "New Dns record: $newDnsRecord"
+$newDnsEntriesHashtable["new-dns-record1.$zoneName"] = "172.205.36.170"
+$newDnsEntriesHashtable["new-dns-record2.$zoneName"] = "172.205.36.171"
+$newDnsEntriesHashtable["new-dns-record3.$zoneName"] = "172.205.36.172"
 
-$newIpAddress = "172.205.36.169"
+foreach ($item in $newDnsEntriesHashtable.GetEnumerator())
+{
+	$newDnsRecord = $item.Name
 
-Write-Host "New IP address: $newIpAddress"
+	Write-Host "New Dns record: $newDnsRecord"
 
-Write-Host "Creating new DNS record $newDnsRecord with IP $newIpAddress"
+	$newIpAddress = $item.Value
 
-$comment = "Sent from PowerShell $( $( Get-Date ).DateTime )"
+	Write-Host "New IP address: $newIpAddress"
 
-.\Insert-CloudflareDnsRecord.ps1 -ApiToken $env:CLOUDFLARE_API_KEY `
+	Write-Host "Creating new DNS record $newDnsRecord with IP $newIpAddress"
+
+	$comment = "Sent from PowerShell $( $( Get-Date ).DateTime )"
+
+	.\Insert-CloudflareDnsRecord.ps1 -ApiToken $env:CLOUDFLARE_API_KEY `
 	-Comment $comment `
 	-DnsName $newDnsRecord `
 	-ZoneId $zoneId `
 	-IpAddress $newIpAddress
+}
