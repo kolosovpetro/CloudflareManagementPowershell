@@ -27,8 +27,7 @@ Write-Host "Zone ID Retrieved: $zoneId" -ForegroundColor Green
 Write-Host "Fetching existing DNS records for Zone ID: $zoneId..." -ForegroundColor Yellow
 $existingDnsRecords = $( .\Get-CloudflareDnsRecords.ps1 -ApiToken $ApiToken -ZoneId "$zoneId" )
 
-Write-Host "Existing DNS records"
-$existingDnsRecords
+Write-Host "Existing DNS records Count: $($existingDnsRecords.Count)"
 
 if (-not $existingDnsRecords -or -not ($existingDnsRecords -is [hashtable]))
 {
@@ -62,8 +61,6 @@ foreach ($entry in $NewDnsEntriesHashtable.GetEnumerator())
 
     if ( $existingDnsRecords.ContainsKey($dnsName))
     {
-        $recordId = $existingDnsRecords[$dnsName]
-
         Write-Host "Found existing DNS record for $dnsName. Record ID: $recordId" -ForegroundColor Green
         Write-Host "Updating DNS record for $dnsName with IP Address: $ipAddress" -ForegroundColor Yellow
 
@@ -73,7 +70,6 @@ foreach ($entry in $NewDnsEntriesHashtable.GetEnumerator())
                 -Comment $comment `
                 -DnsName $dnsName `
                 -ZoneId $zoneId `
-                -RecordId $recordId `
                 -IpAddress $ipAddress
 
             Write-Host "Successfully updated DNS record for $dnsName." -ForegroundColor Green
