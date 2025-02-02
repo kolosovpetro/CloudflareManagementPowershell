@@ -1,0 +1,19 @@
+trigger: none
+pr: none
+
+stages:
+  - stage: 'Test_Scripts'
+    displayName: 'Test_Scripts'
+    jobs:
+      - job: 'Test_Scripts'
+        displayName: 'Test_Scripts'
+        strategy:
+          windows:
+            imageName: 'windows-latest'
+          linux:
+            imageName: 'ubuntu-latest'
+        pool:
+          vmImage: $(imageName)
+        steps:
+          - checkout: self
+            fetchDepth: 0
