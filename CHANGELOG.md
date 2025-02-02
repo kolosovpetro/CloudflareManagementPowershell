@@ -8,3 +8,11 @@ and this project adheres to [Semantic Versioning v2.0.0](https://semver.org/spec
 ## v1.0.0 - In Progress
 
 ### Changed
+
+- PowerShell script to fetch Cloudflare Zone ID (including test)
+- PowerShell script to fetch all DNS records by Cloudflare Zone ID (including test)
+- PowerShell script to create new Cloudflare DNS record (including test)
+- PowerShell script to update existing Cloudflare DNS record (including test)
+- PowerShell script to create new or update existing Cloudflare DNS record (including test)
+- PowerShell script to delete existing Cloudflare DNS record (including test)
+- All PowerShell scripts that create or update are idempotent
