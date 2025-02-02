@@ -1,4 +1,6 @@
-﻿$zoneName = "razumovsky.me"
+﻿Set-Location -Path $PSScriptRoot
+
+$zoneName = "razumovsky.me"
 Write-Host "Zone Name: $zoneName"
 
 $zoneId = $( ./Get-CloudflareZoneId.ps1 -ApiToken $env:CLOUDFLARE_API_KEY -ZoneName $zoneName );
