@@ -1,0 +1,158 @@
+name: Test Scripts
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+  workflow_dispatch:
+
+jobs:
+  test-scripts-ubuntu:
+    name: Test Scripts Ubuntu
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout'
+        uses: actions/checkout@v4
+
+      - name: Get Cloudflare Zone ID
+        run: ./cloudflare/Get-CloudflareZoneId-Test.ps1
+        shell: pwsh
+        env:
+          CLOUDFLARE_API_KEY: ${{ secrets.CLOUDFLARE_API_KEY }}
+          
+      - name: Get DNS records
+        run: ./cloudflare/Get-CloudflareDnsRecords-Test.ps1
+        shell: pwsh
+        env:
+          CLOUDFLARE_API_KEY: ${{ secrets.CLOUDFLARE_API_KEY }}
+          
+      - name: Insert DNS records
+        run: ./cloudflare/Insert-CloudflareDnsRecord-Test.ps1
+        shell: pwsh
+        env:
+          CLOUDFLARE_API_KEY: ${{ secrets.CLOUDFLARE_API_KEY }}
+          
+      - name: Insert DNS records
+        run: ./cloudflare/Insert-CloudflareDnsRecord-Test.ps1
+        shell: pwsh
+        env:
+          CLOUDFLARE_API_KEY: ${{ secrets.CLOUDFLARE_API_KEY }}
+          
+      - name: Update DNS records
+        run: ./cloudflare/Update-CloudflareDnsRecord-Test.ps1
+        shell: pwsh
+        env:
+          CLOUDFLARE_API_KEY: ${{ secrets.CLOUDFLARE_API_KEY }}
+          
+      - name: Update DNS records
+        run: ./cloudflare/Update-CloudflareDnsRecord-Test.ps1
+        shell: pwsh
+        env:
+          CLOUDFLARE_API_KEY: ${{ secrets.CLOUDFLARE_API_KEY }}
+          
+      - name: Delete DNS records
+        run: ./cloudflare/Delete-CloudflareDnsRecord-Test.ps1
+        shell: pwsh
+        env:
+          CLOUDFLARE_API_KEY: ${{ secrets.CLOUDFLARE_API_KEY }}
+          
+      - name: Delete DNS records
+        run: ./cloudflare/Delete-CloudflareDnsRecord-Test.ps1
+        shell: pwsh
+        env:
+          CLOUDFLARE_API_KEY: ${{ secrets.CLOUDFLARE_API_KEY }}
+          
+      - name: Upsert DNS records
+        run: ./cloudflare/Upsert-CloudflareDnsRecord-Test.ps1
+        shell: pwsh
+        env:
+          CLOUDFLARE_API_KEY: ${{ secrets.CLOUDFLARE_API_KEY }}
+          
+      - name: Upsert DNS records
+        run: ./cloudflare/Upsert-CloudflareDnsRecord-Test.ps1
+        shell: pwsh
+        env:
+          CLOUDFLARE_API_KEY: ${{ secrets.CLOUDFLARE_API_KEY }}
+          
+      - name: Delete DNS records
+        run: ./cloudflare/Delete-CloudflareDnsRecord-Test.ps1
+        shell: pwsh
+        env:
+          CLOUDFLARE_API_KEY: ${{ secrets.CLOUDFLARE_API_KEY }}
+          
+  test-scripts-windows:
+    name: Test Scripts Windows
+    runs-on: windows-latest
+    needs: test-scripts-ubuntu
+    steps:
+      - name: 'Checkout'
+        uses: actions/checkout@v4
+
+      - name: Get Cloudflare Zone ID
+        run: ./cloudflare/Get-CloudflareZoneId-Test.ps1
+        shell: pwsh
+        env:
+          CLOUDFLARE_API_KEY: ${{ secrets.CLOUDFLARE_API_KEY }}
+
+      - name: Get DNS records
+        run: ./cloudflare/Get-CloudflareDnsRecords-Test.ps1
+        shell: pwsh
+        env:
+          CLOUDFLARE_API_KEY: ${{ secrets.CLOUDFLARE_API_KEY }}
+
+      - name: Insert DNS records
+        run: ./cloudflare/Insert-CloudflareDnsRecord-Test.ps1
+        shell: pwsh
+        env:
+          CLOUDFLARE_API_KEY: ${{ secrets.CLOUDFLARE_API_KEY }}
+
+      - name: Insert DNS records
+        run: ./cloudflare/Insert-CloudflareDnsRecord-Test.ps1
+        shell: pwsh
+        env:
+          CLOUDFLARE_API_KEY: ${{ secrets.CLOUDFLARE_API_KEY }}
+
+      - name: Update DNS records
+        run: ./cloudflare/Update-CloudflareDnsRecord-Test.ps1
+        shell: pwsh
+        env:
+          CLOUDFLARE_API_KEY: ${{ secrets.CLOUDFLARE_API_KEY }}
+
+      - name: Update DNS records
+        run: ./cloudflare/Update-CloudflareDnsRecord-Test.ps1
+        shell: pwsh
+        env:
+          CLOUDFLARE_API_KEY: ${{ secrets.CLOUDFLARE_API_KEY }}
+
+      - name: Delete DNS records
+        run: ./cloudflare/Delete-CloudflareDnsRecord-Test.ps1
+        shell: pwsh
+        env:
+          CLOUDFLARE_API_KEY: ${{ secrets.CLOUDFLARE_API_KEY }}
+
+      - name: Delete DNS records
+        run: ./cloudflare/Delete-CloudflareDnsRecord-Test.ps1
+        shell: pwsh
+        env:
+          CLOUDFLARE_API_KEY: ${{ secrets.CLOUDFLARE_API_KEY }}
+
+      - name: Upsert DNS records
+        run: ./cloudflare/Upsert-CloudflareDnsRecord-Test.ps1
+        shell: pwsh
+        env:
+          CLOUDFLARE_API_KEY: ${{ secrets.CLOUDFLARE_API_KEY }}
+
+      - name: Upsert DNS records
+        run: ./cloudflare/Upsert-CloudflareDnsRecord-Test.ps1
+        shell: pwsh
+        env:
+          CLOUDFLARE_API_KEY: ${{ secrets.CLOUDFLARE_API_KEY }}
+
+      - name: Delete DNS records
+        run: ./cloudflare/Delete-CloudflareDnsRecord-Test.ps1
+        shell: pwsh
+        env:
+          CLOUDFLARE_API_KEY: ${{ secrets.CLOUDFLARE_API_KEY }}
