@@ -52,6 +52,6 @@ if ($responseJson.success -eq $true)
 else
 {
     Write-Host "Failed to create DNS record."
-    Write-Host "Response: $( $responseJson )"
+    Write-Host "Response: $( $response )"
     exit 1
 }

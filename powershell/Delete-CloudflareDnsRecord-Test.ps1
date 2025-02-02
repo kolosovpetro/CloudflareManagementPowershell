@@ -1,24 +1,39 @@
 ﻿$zoneId = $( ./Get-CloudflareZoneId.ps1 -ApiToken $env:CLOUDFLARE_API_KEY -ZoneName "razumovsky.me" );
+
 Write-Host "Zone ID: $zoneId"
 
-$newDnsRecord = "new-dns-record"
+$zoneName = "razumovsky.me"
 
-Write-Host "New Dns record: $newDnsRecord"
+$newDnsEntriesHashtable = @{ }
 
-$newIpAddress = "172.205.36.169"
+$newDnsEntriesHashtable["new-dns-record1.$zoneName"] = "172.205.36.170"
+$newDnsEntriesHashtable["new-dns-record2.$zoneName"] = "172.205.36.171"
+$newDnsEntriesHashtable["new-dns-record3.$zoneName"] = "172.205.36.172"
 
-Write-Host "New IP address: $newIpAddress"
+$existingDnsRecords = $( .\Get-CloudflareDnsRecords.ps1 -ApiToken $env:CLOUDFLARE_API_KEY -ZoneId "$zoneId" )
 
-Write-Host "Creating new DNS record $newDnsRecord with IP $newIpAddress"
+Write-Host "Existing DNS records"
+$existingDnsRecords
 
-$comment = "Sent from PowerShell $( $( Get-Date ).DateTime )"
+foreach ($entry in $newDnsEntriesHashtable.GetEnumerator())
+{
 
-$newRecordId = $(.\Insert-CloudflareDnsRecord.ps1 -ApiToken $env:CLOUDFLARE_API_KEY `
-	-Comment $comment `
-	-DnsName $newDnsRecord `
-	-ZoneId $zoneId `
-	-IpAddress $newIpAddress)
+    $dnsName = $entry.Name
 
-Write-Host "Deleting record with ID: $newRecordId"
+    $existingDnsRecordsContainsKey = $($existingDnsRecords.ContainsKey($dnsName) );
 
-.\Delete-CloudflareDnsRecord.ps1 -ApiToken $env:CLOUDFLARE_API_KEY -ZoneId $zoneId -RecordId $newRecordId
+    Write-Host "Existing DNS contains key $dnsName is $existingDnsRecordsContainsKey"
+
+    if (-not $existingDnsRecordsContainsKey)
+    {
+        Write-Host "DNS name $dnsName does not exist. Skipping ..."
+        continue
+    }
+
+    $recordId = $existingDnsRecords[$dnsName]
+
+    Write-Host "Record ID to delete: $recordId. Starting deletion..."
+
+
+    .\Delete-CloudflareDnsRecord.ps1 -ApiToken $env:CLOUDFLARE_API_KEY -ZoneId $zoneId -RecordId $recordId
+}
