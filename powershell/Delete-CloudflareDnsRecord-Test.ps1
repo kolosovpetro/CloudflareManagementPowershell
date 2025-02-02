@@ -1,55 +1,24 @@
-﻿param(
-    [Parameter(Mandatory = $true)]
-    [string]$ApiToken,
+﻿$zoneId = $( ./Get-CloudflareZoneId.ps1 -ApiToken $env:CLOUDFLARE_API_KEY -ZoneName "razumovsky.me" );
+Write-Host "Zone ID: $zoneId"
 
-    [Parameter(Mandatory = $true)]
-    [string]$DnsName,
+$newDnsRecord = "new-dns-record"
 
-    [Parameter(Mandatory = $true)]
-    [string]$ZoneId,
+Write-Host "New Dns record: $newDnsRecord"
 
-    [Parameter(Mandatory = $true)]
-    [string]$IpAddress,
+$newIpAddress = "172.205.36.169"
 
-    [Parameter(Mandatory = $true)]
-    [string]$Comment
+Write-Host "New IP address: $newIpAddress"
 
-)
+Write-Host "Creating new DNS record $newDnsRecord with IP $newIpAddress"
 
-$ErrorActionPreference = "Stop"
+$comment = "Sent from PowerShell $( $( Get-Date ).DateTime )"
 
-$url = "https://api.cloudflare.com/client/v4/zones/$ZoneId/dns_records"
+$newRecordId = $(.\Insert-CloudflareDnsRecord.ps1 -ApiToken $env:CLOUDFLARE_API_KEY `
+	-Comment $comment `
+	-DnsName $newDnsRecord `
+	-ZoneId $zoneId `
+	-IpAddress $newIpAddress)
 
-$body = @{
-    comment = $Comment
-    content = $IpAddress
-    name = $DnsName
-    proxied = $false
-    settings = @{
-        ipv4_only = $false
-        ipv6_only = $false
-    }
-    ttl = 1
-    type = "A"
-} | ConvertTo-Json -Depth 4
+Write-Host "Deleting record with ID: $newRecordId"
 
-$body
-
-$response = curl $url `
-    -X POST `
-    -H "Authorization: Bearer $ApiToken" `
-    -H "Content-Type: application/json" `
-    -d $body
-
-$responseJson = $response | ConvertFrom-Json
-
-if ($responseJson.success -eq $true)
-{
-    Write-Host "DNS record created successfully."
-    Write-Host "Response: $response"
-}
-else
-{
-    Write-Host "Failed to create DNS record."
-    Write-Host "Response: $( $response )"
-}
+.\Delete-CloudflareDnsRecord.ps1 -ApiToken $env:CLOUDFLARE_API_KEY -ZoneId $zoneId -RecordId $newRecordId

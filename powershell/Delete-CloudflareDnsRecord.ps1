@@ -3,53 +3,33 @@
     [string]$ApiToken,
 
     [Parameter(Mandatory = $true)]
-    [string]$DnsName,
-
-    [Parameter(Mandatory = $true)]
     [string]$ZoneId,
 
     [Parameter(Mandatory = $true)]
-    [string]$IpAddress,
-
-    [Parameter(Mandatory = $true)]
-    [string]$Comment
+    [string]$RecordId
 
 )
 
 $ErrorActionPreference = "Stop"
 
-$url = "https://api.cloudflare.com/client/v4/zones/$ZoneId/dns_records"
-
-$body = @{
-    comment = $Comment
-    content = $IpAddress
-    name = $DnsName
-    proxied = $false
-    settings = @{
-        ipv4_only = $false
-        ipv6_only = $false
-    }
-    ttl = 1
-    type = "A"
-} | ConvertTo-Json -Depth 4
-
-$body
+$url = "https://api.cloudflare.com/client/v4/zones/$ZoneId/dns_records/$RecordId"
 
 $response = curl $url `
-    -X POST `
+    -X DELETE `
     -H "Authorization: Bearer $ApiToken" `
-    -H "Content-Type: application/json" `
-    -d $body
+    -H "Content-Type: application/json"
 
 $responseJson = $response | ConvertFrom-Json
 
 if ($responseJson.success -eq $true)
 {
-    Write-Host "DNS record created successfully."
-    Write-Host "Response: $response"
+    Write-Host "DNS record $RecordId deleted successfully."
+    Write-Host "Response: $responseJson"
+    return $responseJson.result.id
 }
 else
 {
-    Write-Host "Failed to create DNS record."
+    Write-Host "Failed to delete DNS record $RecordId."
     Write-Host "Response: $( $response )"
+    exit 1
 }

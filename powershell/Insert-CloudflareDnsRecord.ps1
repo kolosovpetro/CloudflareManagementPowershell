@@ -45,7 +45,7 @@ $responseJson = $response | ConvertFrom-Json
 
 if ($responseJson.success -eq $true)
 {
-    Write-Host "DNS record created successfully."
+    Write-Host "DNS record $($responseJson.result.id) created successfully."
     Write-Host "Response: $responseJson"
     return $responseJson.result.id
 }
