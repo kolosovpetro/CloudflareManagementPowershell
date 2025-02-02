@@ -24,5 +24,6 @@ jobs:
 
       - name: Get Cloudflare Zone ID
         run: ./cloudflare/Get-CloudflareZoneId-Test.ps1
+        shell: pwsh
         env:
           CLOUDFLARE_API_KEY: ${{ secrets.CLOUDFLARE_API_KEY }}
