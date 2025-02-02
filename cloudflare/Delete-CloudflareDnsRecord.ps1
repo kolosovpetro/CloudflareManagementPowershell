@@ -1,3 +1,29 @@
+<#
+.SYNOPSIS
+    Deletes a DNS record from a Cloudflare zone using the Cloudflare API.
+
+.DESCRIPTION
+    This script connects to the Cloudflare API using an API token and removes a specified DNS record from a given zone.
+    It requires the API token, the Cloudflare Zone ID, and the DNS record name to be deleted.
+
+.PARAMETER ApiToken
+    The Cloudflare API token with the necessary permissions to manage DNS records.
+
+.PARAMETER ZoneId
+    The unique identifier of the Cloudflare zone where the DNS record exists.
+
+.PARAMETER DnsName
+    The DNS record name (e.g., subdomain.example.com) to be deleted.
+
+.EXAMPLE
+    .\Delete-CloudflareDnsRecord.ps1 -ApiToken "your_api_token" -ZoneId "your_zone_id" -DnsName "subdomain.example.com"
+    Deletes the specified DNS record from the Cloudflare zone.
+
+.NOTES
+    - Ensure that your API token has permission to delete DNS records.
+    - The script requires PowerShell 5.1 or later.
+#>
+
 param(
     [Parameter(Mandatory = $true)]
     [string]$ApiToken,

@@ -1,3 +1,31 @@
+<#
+.SYNOPSIS
+    Updates or creates Cloudflare DNS records based on a provided hashtable of DNS entries.
+
+.DESCRIPTION
+    This script updates existing DNS records for a given Cloudflare zone based on the provided DNS name and IP address.
+    If the DNS record does not exist, it creates a new one. The script fetches the zone ID and existing DNS records from Cloudflare
+    and uses separate scripts to update or insert DNS records.
+
+.PARAMETER ApiToken
+    The Cloudflare API token with the necessary permissions to manage DNS records.
+
+.PARAMETER ZoneName
+    The name of the Cloudflare zone for which DNS records need to be updated or created.
+
+.PARAMETER NewDnsEntriesHashtable
+    A hashtable containing DNS entries where the key is the DNS name and the value is the IP address.
+
+.EXAMPLE
+    .\Update-Or-Create-CloudflareDnsRecords.ps1 -ApiToken "your_api_token" -ZoneName "example.com" -NewDnsEntriesHashtable @{ "subdomain1.example.com" = "192.0.2.1"; "subdomain2.example.com" = "198.51.100.1" }
+    Updates existing DNS records or creates new ones for "subdomain1.example.com" and "subdomain2.example.com" with the respective IP addresses.
+
+.NOTES
+    - Ensure that your API token has permission to manage DNS records.
+    - The script requires PowerShell 5.1 or later.
+    - Utilizes other PowerShell scripts such as `Get-CloudflareZoneId.ps1`, `Get-CloudflareDnsRecords.ps1`, `Update-CloudflareDnsRecord.ps1`, and `Insert-CloudflareDnsRecord.ps1`.
+#>
+
 param (
     [Parameter(Mandatory = $true)]
     [string]$ApiToken,

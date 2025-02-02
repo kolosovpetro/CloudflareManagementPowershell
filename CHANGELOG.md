@@ -16,3 +16,4 @@ and this project adheres to [Semantic Versioning v2.0.0](https://semver.org/spec
 - PowerShell script to create new or update existing Cloudflare DNS record (including test)
 - PowerShell script to delete existing Cloudflare DNS record (including test)
 - All PowerShell scripts that create or update are idempotent
+- Add SYNOPSIS documentation for clarity

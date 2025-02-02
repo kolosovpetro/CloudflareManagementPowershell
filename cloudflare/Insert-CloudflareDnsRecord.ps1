@@ -1,3 +1,38 @@
+<#
+.SYNOPSIS
+    Creates a new DNS record in a Cloudflare zone if it doesn't already exist.
+
+.DESCRIPTION
+    This script checks if a DNS record with the specified name exists in the given Cloudflare zone.
+    If the record doesn't exist, it creates an "A" type DNS record with the provided IP address and comment.
+    It interacts with the Cloudflare API to create the record and handles both success and failure responses.
+
+.PARAMETER ApiToken
+    The Cloudflare API token with the necessary permissions to manage DNS records.
+
+.PARAMETER DnsName
+    The DNS record name (e.g., subdomain.example.com) to be created.
+
+.PARAMETER ZoneId
+    The unique identifier of the Cloudflare zone where the DNS record should be created.
+
+.PARAMETER IpAddress
+    The IP address to associate with the DNS record.
+
+.PARAMETER Comment
+    A comment to associate with the DNS record.
+
+.EXAMPLE
+    .\Create-CloudflareDnsRecord.ps1 -ApiToken "your_api_token" -DnsName "subdomain.example.com" -ZoneId "your_zone_id" -IpAddress "192.0.2.1" -Comment "New DNS record"
+    Creates a new DNS "A" record for "subdomain.example.com" with the IP address "192.0.2.1" in the specified Cloudflare zone.
+
+.NOTES
+    - Ensure that your API token has permission to create DNS records.
+    - The script requires PowerShell 5.1 or later.
+    - Utilizes `curl` to interact with the Cloudflare API and `ConvertFrom-Json` for response handling.
+#>
+
+
 param(
     [Parameter(Mandatory = $true)]
     [string]$ApiToken,
