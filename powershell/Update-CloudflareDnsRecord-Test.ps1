@@ -1,25 +1,24 @@
-﻿$zoneId = $( ./Get-CloudflareZoneId.ps1 -ApiToken $env:CLOUDFLARE_API_KEY -ZoneName "razumovsky.me" );
+﻿$zoneName = "razumovsky.me"
+Write-Host "Zone Name: $zoneName"
+
+$zoneId = $( ./Get-CloudflareZoneId.ps1 -ApiToken $env:CLOUDFLARE_API_KEY -ZoneName $zoneName );
 Write-Host "Zone ID: $zoneId"
 
-$dnsRecords = $( .\Get-CloudflareDnsRecords.ps1 -ApiToken $env:CLOUDFLARE_API_KEY -ZoneId "$zoneId" )
-$dnsRecords
+$validDnsRecord = "postman-test.$zoneName"
+$dnsDoesNotExist = "postman-test1.$zoneName"
 
-if ($dnsRecords -is [Hashtable] -and $dnsRecords.Count -eq 0)
-{
-    Write-Output "Empty DNS records, skipping"
-    return
-}
-
-Write-Host "Getting first or default record"
-
-$firstItem = $dnsRecords.GetEnumerator() | Select-Object -First 1
-$firstItem
-$firstItem.Name
-$firstItem.Value
+Write-Host "Checking valid DNS record to update $validDnsRecord .."
 
 .\Update-CloudflareDnsRecord.ps1 -ApiToken $env:CLOUDFLARE_API_KEY `
 	-Comment "Sent from PowerShell $( $( Get-Date ).DateTime )" `
-	-DnsName $firstItem.Name `
+	-DnsName $validDnsRecord `
 	-ZoneId $zoneId `
-	-RecordId $firstItem.Value `
+	-IpAddress "172.205.36.170"
+
+Write-Host "Checking invalid DNS record to update $dnsDoesNotExist .."
+
+.\Update-CloudflareDnsRecord.ps1 -ApiToken $env:CLOUDFLARE_API_KEY `
+	-Comment "Sent from PowerShell $( $( Get-Date ).DateTime )" `
+	-DnsName $dnsDoesNotExist `
+	-ZoneId $zoneId `
 	-IpAddress "172.205.36.169"

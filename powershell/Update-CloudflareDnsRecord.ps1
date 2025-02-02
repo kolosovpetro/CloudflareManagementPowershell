@@ -9,9 +9,6 @@
     [string]$ZoneId,
 
     [Parameter(Mandatory = $true)]
-    [string]$RecordId,
-
-    [Parameter(Mandatory = $true)]
     [string]$IpAddress,
 
     [Parameter(Mandatory = $true)]
@@ -19,8 +16,6 @@
 )
 
 $ErrorActionPreference = "Stop"
-
-$url = "https://api.cloudflare.com/client/v4/zones/$ZoneId/dns_records/$RecordId"
 
 $body = @{
     comment = $Comment
@@ -35,7 +30,28 @@ $body = @{
     type = "A"
 } | ConvertTo-Json -Depth 4
 
-# Perform the API request
+Write-Host "Checking existing DNS records ..."
+
+$existingDnsRecords = $( .\Get-CloudflareDnsRecords.ps1 -ApiToken $env:CLOUDFLARE_API_KEY -ZoneId "$zoneId" )
+
+Write-Host "Existing DNS records count: $( $existingDnsRecords.Count )"
+
+$recordExists = $existingDnsRecords.ContainsKey($DnsName)
+
+Write-Host "Record $DnsName exists already: $recordExists"
+
+if ($recordExists -eq $False)
+{
+    Write-Host "Record $DnsName does not exist. Skipping update ..."
+    exit 0
+}
+
+$recordId = $existingDnsRecords[$DnsName]
+
+Write-Host "Record to update: $recordId"
+
+$url = "https://api.cloudflare.com/client/v4/zones/$ZoneId/dns_records/$recordId"
+
 $response = curl $url `
     -X PATCH `
     -H "Authorization: Bearer $ApiToken" `
@@ -47,13 +63,13 @@ $responseJson = $response | ConvertFrom-Json
 # Check the response
 if ($responseJson.success -eq $true)
 {
-    Write-Host "DNS record $RecordId updated successfully."
+    Write-Host "DNS record $recordId updated successfully."
     Write-Host "Response: $responseJson"
     return $responseJson.success
 }
 else
 {
-    Write-Host "Failed to update DNS record $RecordId."
+    Write-Host "Failed to update DNS record $recordId."
     Write-Host "Response: $( $response )"
     exit 1
 }
@@ -61,5 +77,4 @@ else
 #.\Update-CloudflareDnsRecord.ps1 -ApiToken $env:CLOUDFLARE_API_KEY `
 #	-DnsName "auth-eventtriangle.razumovsky.me" `
 #	-ZoneId $zoneId `
-#	-RecordId "98b014141c8d4bae0db9800617c04076" `
 #	-IpAddress "172.205.36.169"
