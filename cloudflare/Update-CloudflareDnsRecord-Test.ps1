@@ -1,4 +1,4 @@
-﻿Set-Location -Path $PSScriptRoot
+Set-Location -Path $PSScriptRoot
 
 $zoneName = "razumovsky.me"
 Write-Host "Zone Name: $zoneName"
