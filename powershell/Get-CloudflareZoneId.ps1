@@ -10,23 +10,21 @@ $ErrorActionPreference = "Stop"
 
 $url = "https://api.cloudflare.com/client/v4/zones"
 
-# Perform the API request
 $response = $( curl -s -S $url -H "Authorization: Bearer $ApiToken" -H "Content-Type: application/json" )
 
-# Parse the JSON response
 $json = $response | ConvertFrom-Json
 
-# Filter the result for the zone named 'razumovsky.me'
 $zone = $json.result | Where-Object { $_.name -eq "$ZoneName" }
 
-# Output the Zone ID
 if ($zone)
 {
+    Write-Host "Zone $ZoneName with ID $( $zone.id ) fetched succesfully ..." -ForegroundColor Green
     return $zone.id
 }
 else
 {
-    Write-Output "Zone '$ZoneName' not found."
+    Write-Output "Zone '$ZoneName' not found." -ForegroundColor Red
+    exit 1
 }
 
 

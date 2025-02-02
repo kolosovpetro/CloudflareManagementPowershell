@@ -1,4 +1,6 @@
-﻿$zoneName = "razumovsky.me"
+﻿Set-Location -Path $PSScriptRoot
+
+$zoneName = "razumovsky.me"
 
 $newDnsEntriesHashtable = @{ }
 
