@@ -49,8 +49,6 @@ $body = @{
     type = "A"
 } | ConvertTo-Json -Depth 4
 
-Write-Host "Json body: $body"
-
 $response = curl -s -S $url `
     -X POST `
     -H "Authorization: Bearer $ApiToken" `
