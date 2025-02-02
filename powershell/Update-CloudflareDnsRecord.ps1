@@ -12,7 +12,10 @@
     [string]$RecordId,
 
     [Parameter(Mandatory = $true)]
-    [string]$IpAddress
+    [string]$IpAddress,
+
+    [Parameter(Mandatory = $true)]
+    [string]$Comment
 )
 
 $ErrorActionPreference = "Stop"
@@ -20,7 +23,7 @@ $ErrorActionPreference = "Stop"
 $url = "https://api.cloudflare.com/client/v4/zones/$ZoneId/dns_records/$RecordId"
 
 $body = @{
-    comment = "Sent from Powershell $( $( Get-Date ).DateTime )"
+    comment = $Comment
     content = $IpAddress
     name = $DnsName
     proxied = $false
