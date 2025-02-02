@@ -4,4 +4,4 @@ $zoneId = $(./Get-CloudflareZoneId.ps1 -ApiToken $env:CLOUDFLARE_API_KEY -ZoneNa
 Write-Host "Zone ID: $zoneId"
 
 $dnsRecords = $(.\Get-CloudflareDnsRecords.ps1 -ApiToken $env:CLOUDFLARE_API_KEY -ZoneId "$zoneId")
-$dnsRecords
+Write-Host "DNS records count: $($dnsRecords.Count)"
