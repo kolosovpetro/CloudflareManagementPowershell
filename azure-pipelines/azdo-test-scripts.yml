@@ -16,52 +16,7 @@ jobs:
         displayName: 'Get Cloudflare Zone ID'
         inputs:
           targetType: 'filePath'
-          filePath: './cloudflare/Get-CloudflareZoneId-Test.ps1'
-          pwsh: true
-        env:
-          CLOUDFLARE_API_KEY: $(CLOUDFLARE_API_KEY)
-
-      - task: PowerShell@2
-        displayName: 'Get DNS records'
-        inputs:
-          targetType: 'filePath'
-          filePath: './cloudflare/Get-CloudflareDnsRecords-Test.ps1'
-          pwsh: true
-        env:
-          CLOUDFLARE_API_KEY: $(CLOUDFLARE_API_KEY)
-
-      - task: PowerShell@2
-        displayName: 'Insert DNS records'
-        inputs:
-          targetType: 'filePath'
-          filePath: './cloudflare/Insert-CloudflareDnsRecord-Test.ps1'
-          pwsh: true
-        env:
-          CLOUDFLARE_API_KEY: $(CLOUDFLARE_API_KEY)
-
-      - task: PowerShell@2
-        displayName: 'Update DNS records'
-        inputs:
-          targetType: 'filePath'
-          filePath: './cloudflare/Update-CloudflareDnsRecord-Test.ps1'
-          pwsh: true
-        env:
-          CLOUDFLARE_API_KEY: $(CLOUDFLARE_API_KEY)
-
-      - task: PowerShell@2
-        displayName: 'Delete DNS records'
-        inputs:
-          targetType: 'filePath'
-          filePath: './cloudflare/Delete-CloudflareDnsRecord-Test.ps1'
-          pwsh: true
-        env:
-          CLOUDFLARE_API_KEY: $(CLOUDFLARE_API_KEY)
-
-      - task: PowerShell@2
-        displayName: 'Upsert DNS records'
-        inputs:
-          targetType: 'filePath'
-          filePath: './cloudflare/Upsert-CloudflareDnsRecord-Test.ps1'
+          filePath: './cloudflare/Run-Tests.ps1'
           pwsh: true
         env:
           CLOUDFLARE_API_KEY: $(CLOUDFLARE_API_KEY)
@@ -78,52 +33,7 @@ jobs:
         displayName: 'Get Cloudflare Zone ID'
         inputs:
           targetType: 'filePath'
-          filePath: './cloudflare/Get-CloudflareZoneId-Test.ps1'
-          pwsh: true
-        env:
-          CLOUDFLARE_API_KEY: $(CLOUDFLARE_API_KEY)
-
-      - task: PowerShell@2
-        displayName: 'Get DNS records'
-        inputs:
-          targetType: 'filePath'
-          filePath: './cloudflare/Get-CloudflareDnsRecords-Test.ps1'
-          pwsh: true
-        env:
-          CLOUDFLARE_API_KEY: $(CLOUDFLARE_API_KEY)
-
-      - task: PowerShell@2
-        displayName: 'Insert DNS records'
-        inputs:
-          targetType: 'filePath'
-          filePath: './cloudflare/Insert-CloudflareDnsRecord-Test.ps1'
-          pwsh: true
-        env:
-          CLOUDFLARE_API_KEY: $(CLOUDFLARE_API_KEY)
-
-      - task: PowerShell@2
-        displayName: 'Update DNS records'
-        inputs:
-          targetType: 'filePath'
-          filePath: './cloudflare/Update-CloudflareDnsRecord-Test.ps1'
-          pwsh: true
-        env:
-          CLOUDFLARE_API_KEY: $(CLOUDFLARE_API_KEY)
-
-      - task: PowerShell@2
-        displayName: 'Delete DNS records'
-        inputs:
-          targetType: 'filePath'
-          filePath: './cloudflare/Delete-CloudflareDnsRecord-Test.ps1'
-          pwsh: true
-        env:
-          CLOUDFLARE_API_KEY: $(CLOUDFLARE_API_KEY)
-
-      - task: PowerShell@2
-        displayName: 'Upsert DNS records'
-        inputs:
-          targetType: 'filePath'
-          filePath: './cloudflare/Upsert-CloudflareDnsRecord-Test.ps1'
+          filePath: './cloudflare/Run-Tests.ps1'
           pwsh: true
         env:
           CLOUDFLARE_API_KEY: $(CLOUDFLARE_API_KEY)
