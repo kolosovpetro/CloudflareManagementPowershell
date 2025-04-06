@@ -22,26 +22,29 @@
     - Uses curl to fetch data from the Cloudflare API and ConvertFrom-Json to parse the response.
 #>
 
-param (
-    [Parameter(Mandatory = $true)]
-    [string]$ApiToken,
+function Get-CloudflareDnsRecords
+{
+    param (
+        [Parameter(Mandatory = $true)]
+        [string]$ApiToken,
 
-    [Parameter(Mandatory = $true)]
-    [string]$ZoneId
-)
+        [Parameter(Mandatory = $true)]
+        [string]$ZoneId
+    )
 
-$ErrorActionPreference = "Stop"
+    $ErrorActionPreference = "Stop"
 
-$url = "https://api.cloudflare.com/client/v4/zones/$ZoneId/dns_records"
+    $url = "https://api.cloudflare.com/client/v4/zones/$ZoneId/dns_records"
 
-$response = $( curl -s -S $url -H "Authorization: Bearer $ApiToken" -H "Content-Type: application/json" )
+    $response = $( curl -s -S $url -H "Authorization: Bearer $ApiToken" -H "Content-Type: application/json" )
 
-$json = $response | ConvertFrom-Json
+    $json = $response | ConvertFrom-Json
 
-$dnsRecords = @{ }
+    $dnsRecords = @{ }
 
-$json.result | ForEach-Object {
-    $dnsRecords[$_.name] = $_.id
+    $json.result | ForEach-Object {
+        $dnsRecords[$_.name] = $_.id
+    }
+
+    return $dnsRecords
 }
-
-return $dnsRecords

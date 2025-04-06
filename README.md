@@ -17,6 +17,12 @@ experience. Tested on ubuntu-latest and windows-latest agents using GitHub Actio
 - All scripts are tested on `ubuntu-latest` and `windows-latest` agents using `GitHub Actions`
 - All scripts are tested on `ubuntu-latest` and `windows-latest` agents using `Azure Pipelines`
 
+## Import functions
+
+- Import-Module .\CloudflareDnsTools.psd1
+- Get-Command -Module CloudflareDnsTools
+- Remove-Module CloudflareDnsTools
+
 ## Cloudflare API docs
 
 - https://developers.cloudflare.com/api/resources/zones/methods/list/
