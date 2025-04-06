@@ -16,7 +16,7 @@ jobs:
         displayName: 'Get Cloudflare Zone ID'
         inputs:
           targetType: 'filePath'
-          filePath: './cloudflare/Run-Tests.ps1'
+          filePath: './Run-Tests.ps1'
           pwsh: true
         env:
           CLOUDFLARE_API_KEY: $(CLOUDFLARE_API_KEY)
@@ -33,7 +33,7 @@ jobs:
         displayName: 'Get Cloudflare Zone ID'
         inputs:
           targetType: 'filePath'
-          filePath: './cloudflare/Run-Tests.ps1'
+          filePath: './Run-Tests.ps1'
           pwsh: true
         env:
           CLOUDFLARE_API_KEY: $(CLOUDFLARE_API_KEY)

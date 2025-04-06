@@ -19,7 +19,7 @@ jobs:
           
       - name: Run tests
         run: |
-          .\cloudflare\Run-Tests.ps1
+          .\Run-Tests.ps1
         shell: pwsh
         env:
           CLOUDFLARE_API_KEY: ${{ secrets.CLOUDFLARE_API_KEY }}
@@ -34,7 +34,7 @@ jobs:
 
       - name: Run tests
         run: |
-          .\cloudflare\Run-Tests.ps1
+          .\Run-Tests.ps1
         shell: pwsh
         env:
           CLOUDFLARE_API_KEY: ${{ secrets.CLOUDFLARE_API_KEY }}
