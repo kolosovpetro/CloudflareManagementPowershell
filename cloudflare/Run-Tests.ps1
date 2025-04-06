@@ -2,6 +2,8 @@
 
 Write-Host "================================ Importing modules ================================"
 
+
+Set-Location $PSScriptRoot
 Import-Module .\CloudflareDnsTools.psd1
 Get-Command -Module CloudflareDnsTools
 
