@@ -21,6 +21,7 @@ jobs:
         run: |
           Import-Module .\cloudflare\CloudflareDnsTools.psd1
           Get-Command -Module CloudflareDnsTools
+        shell: pwsh
           
       - name: Run tests
         run: |
