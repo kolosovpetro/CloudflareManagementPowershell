@@ -4,6 +4,8 @@ A complete PowerShell solution for managing Cloudflare DNS records: fetch Zone I
 records, update existing ones, delete records, or create/update. Includes SYNOPSIS documentation for better user
 experience. Tested on ubuntu-latest and windows-latest agents using GitHub Actions and Azure Pipelines.
 
+- https://dev.azure.com/PetroKolosovProjects/CloudflareManagementPowershell
+
 ## What's done so far
 
 - PowerShell script to fetch Cloudflare Zone ID (including test)
@@ -22,6 +24,13 @@ experience. Tested on ubuntu-latest and windows-latest agents using GitHub Actio
 - Import-Module .\CloudflareDnsTools.psd1
 - Get-Command -Module CloudflareDnsTools
 - Remove-Module CloudflareDnsTools
+
+## Release to Gallery
+
+- Install-Module -Name PowerShellGet -Force -SkipPublisherCheck
+- Register-PSRepository -Default
+- Test-ModuleManifest .\CloudflareDnsTools\CloudflareDnsTools.psd1
+- Publish-Module -Path '.\CloudflareDnsTools' -Repository PSGallery -NuGetApiKey $env:PWSH_GALLERY_KEY -Verbose
 
 ## Cloudflare API docs
 
