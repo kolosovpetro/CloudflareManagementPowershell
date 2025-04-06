@@ -1,5 +1,10 @@
 ﻿$ErrorActionPreference = "Stop"
 
+Write-Host "================================ Importing modules ================================"
+
+Import-Module .\CloudflareDnsTools.psd1
+Get-Command -Module CloudflareDnsTools
+
 $tests = Get-ChildItem -Path "$PSScriptRoot/tests" -Filter "*.ps1"
 
 foreach ($item in $tests)

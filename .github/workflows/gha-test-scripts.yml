@@ -19,8 +19,6 @@ jobs:
           
       - name: Run tests
         run: |
-          Import-Module .\cloudflare\CloudflareDnsTools.psd1
-          Get-Command -Module CloudflareDnsTools
           .\cloudflare\Run-Tests.ps1
         shell: pwsh
         env:
@@ -36,8 +34,6 @@ jobs:
 
       - name: Run tests
         run: |
-          Import-Module .\cloudflare\CloudflareDnsTools.psd1
-          Get-Command -Module CloudflareDnsTools
           .\cloudflare\Run-Tests.ps1
         shell: pwsh
         env:
