@@ -4,7 +4,7 @@ Write-Host "================================ Importing modules =================
 
 
 Set-Location $PSScriptRoot
-Import-Module .\CloudflareDnsTools.psd1
+Import-Module $PSScriptRoot\CloudflareDnsTools\CloudflareDnsTools.psd1
 Get-Command -Module CloudflareDnsTools
 
 $tests = Get-ChildItem -Path "$PSScriptRoot/tests" -Filter "*.ps1"

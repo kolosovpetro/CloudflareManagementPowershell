@@ -5,6 +5,7 @@ records, update existing ones, delete records, or create/update. Includes SYNOPS
 experience. Tested on ubuntu-latest and windows-latest agents using GitHub Actions and Azure Pipelines.
 
 - https://dev.azure.com/PetroKolosovProjects/CloudflareManagementPowershell
+- https://www.powershellgallery.com/packages/CloudflareDnsTools/1.0.0
 
 ## What's done so far
 
