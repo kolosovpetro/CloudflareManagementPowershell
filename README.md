@@ -20,11 +20,16 @@ experience. Tested on ubuntu-latest and windows-latest agents using GitHub Actio
 - All scripts are tested on `ubuntu-latest` and `windows-latest` agents using `GitHub Actions`
 - All scripts are tested on `ubuntu-latest` and `windows-latest` agents using `Azure Pipelines`
 
-## Import functions
+## Import functions locally
 
 - Import-Module .\CloudflareDnsTools.psd1
 - Get-Command -Module CloudflareDnsTools
 - Remove-Module CloudflareDnsTools
+
+## Install from PSGallery
+
+- Install-Module -Name CloudflareDnsTools -Force -AllowClobber
+- Get-Command -Module CloudflareDnsTools
 
 ## Release to Gallery
 
