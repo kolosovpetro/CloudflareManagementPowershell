@@ -22,3 +22,5 @@ and this project adheres to [Semantic Versioning v2.0.0](https://semver.org/spec
 - Move scripts as function modules
 - Import modules
 - Update tests
+- Create run tests script
+- Update GHA CI
