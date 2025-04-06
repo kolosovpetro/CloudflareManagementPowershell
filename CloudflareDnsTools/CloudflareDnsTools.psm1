@@ -1,0 +1,6 @@
+. "$PSScriptRoot\functions\Get-CloudflareZoneId.ps1"
+. "$PSScriptRoot\functions\Get-CloudflareDnsRecords.ps1"
+. "$PSScriptRoot\functions\Add-CloudflareDnsRecord.ps1"
+. "$PSScriptRoot\functions\Remove-CloudflareDnsRecord.ps1"
+. "$PSScriptRoot\functions\Update-CloudflareDnsRecord.ps1"
+. "$PSScriptRoot\functions\Set-CloudflareDnsRecord.ps1"

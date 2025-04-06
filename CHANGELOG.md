@@ -19,3 +19,8 @@ and this project adheres to [Semantic Versioning v2.0.0](https://semver.org/spec
 - Add SYNOPSIS documentation for better user experience
 - All scripts are tested on `ubuntu-latest` and `windows-latest` agents using `GitHub Actions`
 - All scripts are tested on `ubuntu-latest` and `windows-latest` agents using `Azure Pipelines`
+- Move scripts as function modules
+- Import modules
+- Update tests
+- Create run tests script
+- Update GHA CI

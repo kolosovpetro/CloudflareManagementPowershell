@@ -1,8 +1,7 @@
-Set-Location -Path $PSScriptRoot
-
 $zoneName = "razumovsky.me"
 
-$zoneId = $( ./Get-CloudflareZoneId.ps1 -ApiToken $env:CLOUDFLARE_API_KEY -ZoneName $zoneName );
+$zoneId = Get-CloudflareZoneId -ApiToken $env:CLOUDFLARE_API_KEY -ZoneName $zoneName
+
 Write-Host "Zone ID: $zoneId"
 
 $newDnsEntriesHashtable = @{ }
@@ -25,7 +24,7 @@ foreach ($item in $newDnsEntriesHashtable.GetEnumerator())
 
 	$comment = "Sent from PowerShell $( $( Get-Date ).DateTime )"
 
-	.\Insert-CloudflareDnsRecord.ps1 -ApiToken $env:CLOUDFLARE_API_KEY `
+	Add-CloudflareDnsRecord -ApiToken $env:CLOUDFLARE_API_KEY `
 	-Comment $comment `
 	-DnsName $newDnsRecord `
 	-ZoneId $zoneId `
